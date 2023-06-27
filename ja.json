@@ -1,0 +1,8 @@
+{
+  "Description": "Activision アカウントのステータスを常に監視してください。",
+  "Name": "アクティビティアカウントチェッカー",
+  "fr.vincentcatillon.activisionchecker.action": {
+    "Name": "ステータスチェック",
+    "Tooltip": "Activision アカウントのステータスについて疑問がありますか? ストリームデッキを常に監視してください。"
+  }
+}

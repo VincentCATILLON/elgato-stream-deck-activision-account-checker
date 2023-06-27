@@ -1,0 +1,8 @@
+{
+  "Description": "Keep an eye on your Activision account status.",
+  "Name": "Activision account checker",
+  "fr.vincentcatillon.activisionchecker.action": {
+    "Name": "Status check",
+    "Tooltip": "Do you have any doubts about the status of your Activision account? Keep a continuous eye on your streamdeck."
+  }
+}

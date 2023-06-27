@@ -1,0 +1,8 @@
+{
+  "Description": "Vigila el estado de tu cuenta de Activision.",
+  "Name": "Comprobador de cuentas de Activision",
+  "fr.vincentcatillon.activisionchecker.action": {
+    "Name": "Comprobación del estad",
+    "Tooltip": "¿Tienes dudas sobre el estado de tu cuenta de Activision? Vigile continuamente su streamdeck."
+  }
+}

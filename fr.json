@@ -1,0 +1,8 @@
+{
+  "Description": "Gardez un oeil sur le statut de votre compte Activision.",
+  "Name": "Vérificateur de compte Activision",
+  "fr.vincentcatillon.activisionchecker.action": {
+    "Name": "Vérification du statut",
+    "Tooltip": "Avez-vous des doutes sur le statut de votre compte Activision ? Gardez un oeil en continu sur votre streamdeck."
+  }
+}

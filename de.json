@@ -1,0 +1,8 @@
+{
+  "Description": "Behalten Sie den Status Ihres Activision-Kontos im Auge.",
+  "Name": "Activision-Kontoprüfer",
+  "fr.vincentcatillon.activisionchecker.action": {
+    "Name": "Statusprüfung",
+    "Tooltip": "Haben Sie Zweifel am Status Ihres Activision-Kontos? Behalten Sie Ihr Streamdeck stets im Auge."
+  }
+}

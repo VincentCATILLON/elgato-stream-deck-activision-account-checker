@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>fr.vincentcatillon.activisionchecker</title>
+    <meta charset="utf-8" />
+  </head>
+
+  <body>
+    <script>
+      let websocket = null;
+      let pluginUUID = null;
+
+      const API_URL = "https://api.activision.com/ban-appeal";
+
+      const StatusEnum = Object.freeze({
+        PENDING: "...",
+        OK: "OK",
+        BANNED: "BAN",
+        ERROR: "ERROR"
+      });
+
+      const checkAction = {
+        type: "fr.vincentcatillon.activisionchecker.action",
+
+        onKeyDown: context => {
+          checkAction.logMessage("onKeyDown");
+        },
+
+        onKeyUp: context => {
+          checkAction.logMessage("onKeyUp");
+
+          checkAction.fetchStatus(context);
+        },
+
+        onWillAppear: context => {
+          checkAction.logMessage("onWillAppear");
+
+          checkAction.fetchStatus(context);
+        },
+
+        setTitle: (context, title) => {
+          checkAction.logMessage(`setTitle: ${title}`);
+
+          const json = {
+            event: "setTitle",
+            context,
+            payload: {
+              title
+            }
+          };
+
+          websocket.send(JSON.stringify(json));
+        },
+
+        fetchStatus: context => {
+          checkAction.logMessage("fetchStatus");
+
+          checkAction.setTitle(context, StatusEnum.PENDING);
+
+          try {
+            const req = new XMLHttpRequest();
+            req.open("GET", API_URL);
+            req.setRequestHeader(
+              "Content-Type",
+              "application/json;charset=UTF-8"
+            );
+
+            req.onreadystatechange = () => {
+              if (req.readyState > 1 && req.readyState < 4) {
+                if (req.status < 200 || req.status >= 300) {
+                  req.abort();
+                }
+              } else if (req.readyState === 4) {
+                if (req.status >= 200 && req.status < 300) {
+                  // @todo
+                  checkAction.setTitle(context, StatusEnum.BAN);
+                } else {
+                  checkAction.setTitle(context, StatusEnum.ERROR);
+                }
+              }
+            };
+
+            // @todo remove
+            setTimeout(() => {
+              req.send();
+            }, 500);
+          } catch (e) {
+            checkAction.logMessage(`Error during fetch: ${e.toString()}`);
+          }
+        },
+
+        signIn: () => {
+          // @todo
+        },
+
+        logMessage: message => {
+          const json = {
+            event: "logMessage",
+            payload: {
+              message
+            }
+          };
+
+          websocket.send(JSON.stringify(json));
+        }
+      };
+
+      const connectElgatoStreamDeckSocket = (port, uuid, event, inInfo) => {
+        pluginUUID = uuid;
+
+        // Open the web socket
+        websocket = new WebSocket(`ws://127.0.0.1:${port}`);
+
+        const registerPlugin = _uuid => {
+          const json = {
+            event,
+            uuid: _uuid
+          };
+
+          websocket.send(JSON.stringify(json));
+        };
+
+        websocket.onopen = () => {
+          // WebSocket is connected, send message
+          registerPlugin(uuid);
+        };
+
+        websocket.onmessage = evt => {
+          // Received message from Stream Deck
+          const data = JSON.parse(evt.data);
+          const { event, action, context, payload } = data || {};
+
+          if (event == "keyDown") {
+            checkAction.onKeyDown(context);
+          } else if (event == "keyUp") {
+            checkAction.onKeyUp(context);
+          } else if (event == "willAppear") {
+            checkAction.onWillAppear(context);
+          }
+        };
+
+        websocket.onclose = function() {
+          // Websocket is closed
+        };
+      };
+    </script>
+  </body>
+</html>

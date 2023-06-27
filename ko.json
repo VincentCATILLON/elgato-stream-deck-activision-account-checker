@@ -1,0 +1,8 @@
+{
+  "Description": "Activision 계정 상태를 주시하십시오.",
+  "Name": "카운터",
+  "fr.vincentcatillon.activisionchecker.action": {
+    "Name": "카운터",
+    "Tooltip": "오늘은 몇 번이나 당하셨나요? 이 카운터로 계산하세요."
+  }
+}

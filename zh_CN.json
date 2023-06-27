@@ -1,0 +1,8 @@
+{
+  "Description": "密切关注您的动视帐户状态。",
+  "Name": "动视账户检查器",
+  "fr.vincentcatillon.activisionchecker.action": {
+    "Name": "状态检查",
+    "Tooltip": "您对您的动视帐户的状态有任何疑问吗？ 持续关注您的直播平台。"
+  }
+}
